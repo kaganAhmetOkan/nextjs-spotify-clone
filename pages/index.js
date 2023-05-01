@@ -1,8 +1,12 @@
 import style from "@/styles/Home.module.css";
 import Head from "next/head";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+    const { data: session, status } = useSession();
+
+    console.log(session);
 
     return (
         <>
