@@ -1,0 +1,23 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    overflow-y: auto;
+    background-color: var(--background);
+    width: 200px;
+    height: calc(100vh - var(--player-height) - var(--sidebar-padding) * 2);
+    padding: var(--sidebar-padding);
+}
+
+.locations {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sidebar-locations-gap);
+    user-select: none;
+    border-bottom: 1px solid var(--spotify-black);
+    padding: var(--sidebar-locations-padding) 0;
+}
+
+.locations > :nth-child(3) {
+    margin-bottom: var(--sidebar-locations-middle-gap);
+}
