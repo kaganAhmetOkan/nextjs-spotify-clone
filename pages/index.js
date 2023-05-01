@@ -1,6 +1,6 @@
 import style from "@/styles/Home.module.css";
 import Head from "next/head";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 export default function Home() {
 

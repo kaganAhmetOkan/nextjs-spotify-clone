@@ -1,0 +1,36 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 500px; height: auto;
+}
+
+.buttonContainer {
+    background-color: var(--spotify-green);
+    border-radius: 32px;
+}
+
+.buttonContainer > button {
+    color: var(--spotify-white);
+    background-color: var(--spotify-black);
+    border: 2px solid var(--spotify-green);
+    font-size: 20px;
+    padding: 16px;
+    border-radius: 32px;
+    transition: 100ms;
+    cursor: pointer;
+}
+
+.buttonContainer > button:hover {
+    transform: translate(4px, -4px);
+}
+
+.buttonContainer > button:active {
+    transform: translate(0, 0);
+}
