@@ -1,12 +1,10 @@
 import style from "@/styles/Home.module.css";
 import Head from "next/head";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Home() {
     const { data: session, status } = useSession();
-
-    console.log(session);
 
     return (
         <>
@@ -19,6 +17,7 @@ export default function Home() {
             <main className={style.main}>
                 <Sidebar/>
                 <div>{/* BROWSER */}</div>
+                <button onClick={() => signOut()}>Sign Out</button>
             </main>
             <footer>
                 {/* PLAYER */}
