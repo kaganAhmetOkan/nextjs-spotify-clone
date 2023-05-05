@@ -1,6 +1,6 @@
 import style from "./Sidebar.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import homeIcon from "@/public/home-icon.svg";
 import searchIcon from "@/public/search-icon.svg";
@@ -18,6 +18,8 @@ export default function Sidebar() {
     const [displaySorting, setDisplaySorting] = useState(false);
     const [sortingBy, setSortingBy] = useState("recents");
     const [iconsOnly, setIconsOnly] = useState(false);
+    
+    const miniSearchBar = useRef();
 
     const displayOptions = ["Playlists", "Podcasts & Shows", "Albums", "Artists"];
 
@@ -38,8 +40,12 @@ export default function Sidebar() {
         };
     };
 
+    useEffect(() => {
+        if (searching) miniSearchBar?.current?.focus();
+    }, [searching, setSearching]);
+
     return (
-        <div className={style.main} data-enlarged={enlarged} data-iconsOnly={iconsOnly}>
+        <div className={style.main} data-enlarged={enlarged} data-icons-only={iconsOnly}>
             <div className={style.locations}>
                 <div className={style.location}>
                     <Image src={homeIcon} alt="Home" height={22} width={"auto"}/>
@@ -100,12 +106,15 @@ export default function Sidebar() {
                                 title="Search in Your Library"
                                 height={18} width={"auto"}
                                 className={style.icon}
-                                onClick={(event) => setSearching(!searching)}
+                                onClick={() => setSearching(!searching)}
                             />
-                            <input placeholder="Search in Your Library"></input>
+                            <input ref={miniSearchBar} placeholder="Search in Your Library"></input>
                         </form>
                         <div className={style.recents} data-display={displaySorting}>
-                            <div className={style.title} onClick={() => setDisplaySorting(!displaySorting)}>
+                            <div className={style.title} onClick={() => {
+                                    setDisplaySorting(!displaySorting);
+                                    setSearching(false);
+                                }}>
                                 {sortingBy}
                                 <Image
                                     src={smallArrowIcon}
