@@ -48,11 +48,11 @@ export default function Sidebar() {
         <div className={style.main} data-enlarged={enlarged} data-icons-only={iconsOnly}>
             <div className={style.locations}>
                 <div className={style.location}>
-                    <Image src={homeIcon} alt="Home" height={22} width={"auto"}/>
+                    <Image src={homeIcon} alt="Home" height={24} width={"auto"}/>
                     <div>Home</div>
                 </div>
                 <div className={style.location}>
-                    <Image src={searchIcon} alt="Search" height={22} width={"auto"} />
+                    <Image src={searchIcon} alt="Search" height={24} width={"auto"} />
                     <div>Search</div>
                 </div>
             </div>

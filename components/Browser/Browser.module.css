@@ -1,0 +1,197 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: calc(100vh - var(--player-height) - var(--global-padding) * 2);
+    background-color: var(--spotify-black);
+    border-radius: var(--global-roundness);
+    font-weight: bold;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(0,0,0,0);
+    transition: 500ms;
+}
+
+.header[data-background="cyan"] {
+    background: rgb(26,83,98);
+}
+
+.header[data-background="violet"] {
+    background: rgb(32,15,74);
+}
+
+.header[data-background="purple"] {
+    background: rgb(68,15,74);
+}
+
+.header[data-background="blue"] {
+    background: rgb(15,26,74);
+}
+
+.header > .container {
+    background: rgb(26,83,98);
+    background: linear-gradient(180deg, rgba(26,83,98,0) 0%, rgba(25,20,20,1) 100%); 
+    padding: var(--component-padding);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.navOptions {
+    display: flex;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.navOptions > img {
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 32px;
+    padding: 4px;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.navOptions > .backward {
+    transform: rotate(90deg);
+}
+
+.navOptions > .forward {
+    transform: rotate(-90deg);
+}
+
+.navOptions > img:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 32px;
+    position: relative;
+}
+
+.profile > .container {
+    display: flex;
+    overflow: hidden;
+    height: 32px; width: 32px;
+    border-radius: 32px;
+    transition: 100ms;
+    cursor: pointer;
+    position: relative;
+}
+
+.profile > .container:hover {
+    transform: scale(1.05);
+}
+
+.profile .container:active {
+    transform: scale(0.95);
+}
+
+.profile > .container > img {
+    object-fit: cover;
+}
+
+.profileOptions {
+    display: none;
+    flex-direction: column;
+    width: max-content;
+    background-color: var(--spotify-light-black);
+    gap: 4px;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    top: 50px; right: 0;
+}
+
+.profileOptions[data-display="true"] {
+    display: flex;
+}
+
+.profileOptions > div {
+    border-radius: 4px;
+    padding: 8px;
+    text-transform: capitalize;
+    transition: 200ms;
+    font-size: 14px;
+    user-select: none;
+}
+
+.profileOptions > div:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.hero {
+    font-size: 28px;
+    user-select: none;
+}
+
+.recentPlaylists {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    flex-grow: 0;
+    gap: 16px;
+}
+
+.playlist {
+    display: flex;
+    flex-grow: 1;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    align-items: center;
+    user-select: none;
+    height: 80px; min-width: 300px;
+}
+
+.playlist > .thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px 0 0 4px;
+    background-color: rgba(255,255,255,0.1);
+    height: 80px; width: 80px;
+}
+
+.playlist > .content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+}
+
+.playPause {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background-color: var(--spotify-green);
+    border-radius: 32px;
+    cursor: pointer;
+    transition: transform 100ms, opacity 200ms ease-out;
+    box-shadow: 0 5px 5px var(--spotify-black);
+    opacity: 0;
+}
+
+.playlist > .content:hover .playPause {
+    opacity: 1;
+}
+
+.playPause:hover {
+    transform: scale(1.05);
+}
+
+.playPause:active {
+    transform: scale(0.95);
+}

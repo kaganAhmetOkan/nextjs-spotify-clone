@@ -10,10 +10,13 @@
 
     --player-height: 60px;
     
-    --sidebar-padding: 8px;
+    --global-padding: 8px;
+    --global-roundness: 8px;
+
+    --component-padding: 16px;
+
     --sidebar-locations-padding: 16px;
     --sidebar-locations-gap: 16px;
-    --sidebar-locations-roundness: 8px;
     --sidebar-location-gap: 12px;
 }
 

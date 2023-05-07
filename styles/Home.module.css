@@ -1,3 +1,5 @@
 .main {
     display: flex;
+    gap: 8px;
+    padding: var(--global-padding);
 }
