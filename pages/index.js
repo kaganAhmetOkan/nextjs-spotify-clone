@@ -2,9 +2,17 @@ import style from "@/styles/Home.module.css";
 import Head from "next/head";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Home() {
-    const { data: session, status } = useSession();
+    const router = useRouter();
+
+    const { data: session, status } = useSession({
+        required: true,
+        onUnauthenticated() {
+            router.replace("/login");
+        },
+    });
 
     return (
         <>
@@ -25,3 +33,9 @@ export default function Home() {
         </>
     );
 }
+
+// Redirect component and withAuth hoc no longer necessary as next-auth provides an in-built
+// way of managing unauthenticated sessions.
+
+// TODOS
+// Implement layout

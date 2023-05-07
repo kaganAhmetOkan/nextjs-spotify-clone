@@ -262,7 +262,7 @@
     flex-grow: 1;
 }
 
-
+.main[data-icons-only="true"] .playlists > :first-child,
 .main[data-icons-only="true"] .yourLibrary > .title > div,
 .main[data-icons-only="true"] .yourLibrary > img,
 .main[data-icons-only="true"] .options,
