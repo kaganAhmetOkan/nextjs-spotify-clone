@@ -1,0 +1,36 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.main > .thumbnail {
+    display: flex;
+    background-color: var(--spotify-light-black);
+    width: 128px; height: 128px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    padding: 0 0 0 6px;
+    max-width: 128px;
+    gap: 4px;
+}
+
+.title {
+    font-size: 14px;
+}
+
+.details {
+    font-size: 12px;
+    font-weight: normal;
+}

@@ -12,7 +12,6 @@
 .header {
     display: flex;
     flex-direction: column;
-    gap: 8px;
     background: rgba(0,0,0,0);
     transition: 500ms;
 }
@@ -34,6 +33,9 @@
 }
 
 .header > .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     background: rgb(26,83,98);
     background: linear-gradient(180deg, rgba(26,83,98,0) 0%, rgba(25,20,20,1) 100%); 
     padding: var(--component-padding);

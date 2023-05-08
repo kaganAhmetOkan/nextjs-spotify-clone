@@ -250,8 +250,13 @@
     border-bottom: 1px solid var(--spotify-light-black);
 }
 
-.main[data-enlarged="true"] .playlists > :first-child {
+.main[data-enlarged="true"] .playlists[data-grid-mode="false"] > :first-child {
     display: flex;
+}
+
+.playlists[data-grid-mode="true"] {
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .playlistHead {

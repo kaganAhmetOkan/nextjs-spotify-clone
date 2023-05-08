@@ -1,0 +1,37 @@
+.main {
+    display: flex;
+    align-items: center;
+}
+
+.body {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.body > .thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--spotify-light-black);
+    border-radius: 4px;
+    overflow: hidden;
+    height: 48px; width: 48px;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    font-weight: normal;
+    gap: 4px;
+}
+
+.contents > .title {
+    font-weight: bold;
+}
+
+.contents > :last-child {
+    color: #AAA;
+}
