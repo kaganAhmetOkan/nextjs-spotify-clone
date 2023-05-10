@@ -35,3 +35,7 @@
 .contents > :last-child {
     color: #AAA;
 }
+
+.main[data-icons-only="true"] .contents {
+    display: none;
+}

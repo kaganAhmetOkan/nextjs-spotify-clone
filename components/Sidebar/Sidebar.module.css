@@ -278,3 +278,7 @@
 .main[data-icons-only="true"] {
     width: max-content;
 }
+
+.main[data-icons-only="true"] > div {
+    align-items: center;
+}

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import PlaylistA from "@/components/Playlists/PlaylistA";
 import PlaylistB from "@/components/Playlists/PlaylistB";
 import { useAtom, useAtomValue } from "jotai";
-import { sidebarEnlargedAtom, playlistsAtom, gridModeAtom } from "@/atoms/atoms";
+import { sidebarEnlargedAtom, playlistsAtom, gridModeAtom, iconsOnlyAtom } from "@/atoms/atoms";
 
 import homeIcon from "@/public/home-icon.svg";
 import searchIcon from "@/public/search-icon.svg";
@@ -22,7 +22,7 @@ export default function Sidebar() {
     const [searching, setSearching] = useState(false);
     const [displaySorting, setDisplaySorting] = useState(false);
     const [sortingBy, setSortingBy] = useState("recents");
-    const [iconsOnly, setIconsOnly] = useState(false);
+    const [iconsOnly, setIconsOnly] = useAtom(iconsOnlyAtom);
     
     const miniSearchBar = useRef();
 
@@ -87,7 +87,10 @@ export default function Sidebar() {
                         alt="Enlarge Sidebar"
                         height={16} width={"auto"}
                         className={`${style.icon} ${style.enlarge}`}
-                        onClick={() => setEnlarged(!enlarged)}
+                        onClick={() => {
+                            setEnlarged(!enlarged);
+                            setGridMode(false);
+                        }}
                         title={enlarged ? "Reduce Your Library" : "Enlarge Your Library"}
                     />
                 </div>

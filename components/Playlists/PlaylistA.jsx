@@ -1,13 +1,16 @@
 import style from "./PlaylistA.module.css";
 import Image from "next/image";
 import songIcon from "@/public/icons8-music-24.png";
+import { useAtomValue } from "jotai";
+import { iconsOnlyAtom } from "@/atoms/atoms";
 
 export default function PlaylistA({ playlist: playlist }) {
     const {name, images, description, type} = playlist;
     const image = images[0]?.url ?? songIcon;
+    const iconsOnly = useAtomValue(iconsOnlyAtom);
 
     return (
-        <div className={style.main}>
+        <div className={style.main} data-icons-only={iconsOnly}>
             <div className={style.body}>
                 <div className={style.thumbnail}>
                     <Image
