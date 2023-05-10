@@ -5,6 +5,7 @@ import PlaylistA from "@/components/Playlists/PlaylistA";
 import PlaylistB from "@/components/Playlists/PlaylistB";
 import { useAtom, useAtomValue } from "jotai";
 import { sidebarEnlargedAtom, playlistsAtom, gridModeAtom, iconsOnlyAtom } from "@/atoms/atoms";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import homeIcon from "@/public/home-icon.svg";
 import searchIcon from "@/public/search-icon.svg";
@@ -17,8 +18,10 @@ import smallArrowIcon from "@/public/smallArrow-icon.png";
 
 export default function Sidebar() {
     const [enlarged, setEnlarged] = useAtom(sidebarEnlargedAtom);
+    const [enlargedBuffer, setEnlargedBuffer] = useState(false);
     const playlists = useAtomValue(playlistsAtom);
     const [gridMode, setGridMode] = useAtom(gridModeAtom);
+    const [gridModeBuffer, setGridModeBuffer] = useState(false);
     const [searching, setSearching] = useState(false);
     const [displaySorting, setDisplaySorting] = useState(false);
     const [sortingBy, setSortingBy] = useState("recents");
@@ -45,6 +48,18 @@ export default function Sidebar() {
         };
     };
 
+    function handleIconsOnly() {
+        setIconsOnly(!iconsOnly);
+        if (gridMode || gridModeBuffer) {
+            setGridMode(!gridMode);
+            setGridModeBuffer(!gridModeBuffer);
+        };
+        if (enlarged || enlargedBuffer) {
+            setEnlarged(!enlarged);
+            setEnlargedBuffer(!enlargedBuffer);
+        };
+    };
+
     useEffect(() => {
         if (searching) miniSearchBar?.current?.focus();
     }, [searching, setSearching]);
@@ -63,7 +78,7 @@ export default function Sidebar() {
             </div>
             <div>
                 <div className={style.yourLibrary}>
-                    <div className={style.title} title="Collapse Your Library" onClick={() => setIconsOnly(!iconsOnly)}>
+                    <div className={style.title} title="Collapse Your Library" onClick={() => handleIconsOnly()}>
                         <Image src={libraryIcon} alt="Library" height={20} width={"auto"} />
                         <div>Your Library</div>
                     </div>
@@ -147,7 +162,7 @@ export default function Sidebar() {
                         <div className={style.playlistBody}>Date Added</div>
                         <div className={style.playlistFoot}>Played</div>
                     </div>
-                    {playlists?.map((playlist) => {
+                    {playlists?.items?.map((playlist) => {
                         if (!gridMode) return <PlaylistA playlist={playlist} key={playlist?.id} />
                         return <PlaylistB playlist={playlist} key={playlist?.id} />
                     })}

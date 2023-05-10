@@ -126,6 +126,7 @@
     transition: 200ms;
     font-size: 14px;
     user-select: none;
+    cursor: pointer;
 }
 
 .profileOptions > div:hover {

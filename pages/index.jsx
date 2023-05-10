@@ -25,12 +25,11 @@ export default function Home() {
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getUserPlaylists().then((data) => {
-                setPlaylists(data.body.items);
+                setPlaylists(data.body);
+                console.log(data);
             });
         };
     }, [session, spotifyApi, setPlaylists]);
-
-    console.log(playlists);
 
     return (
         <>

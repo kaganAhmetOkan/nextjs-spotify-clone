@@ -5,6 +5,7 @@ import Image from "next/image";
 import smallArrowIcon from "@/public/smallArrow-icon.png";
 import playIcon from "@/public/icons8-play-50.png";
 import pauseIcon from "@/public/icons8-pause-50.png";
+import Link from "next/link";
 
 export default function Browser({ session: session}) {
     const [displayProfileOptions, setDisplayProfileOptions] = useState(false);
@@ -73,7 +74,9 @@ export default function Browser({ session: session}) {
                                 />
                             </div>
                             <div className={style.profileOptions} data-display={displayProfileOptions} onClick={(event) => handleProfileOptions(event)} onMouseLeave={() => setDisplayProfileOptions(false)}>
-                                <div>account</div>
+                                <div>
+                                    <a href="https://www.spotify.com/us/account/overview/" target="_blank">account</a>
+                                </div>
                                 <div>profile</div>
                                 <div>private session</div>
                                 <div>settings</div>
