@@ -7,11 +7,12 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSpotify from "@/hooks/useSpotify";
 import { useAtom } from "jotai";
-import { playlistsAtom } from "@/atoms/atoms";
+import { playlistsAtom, featuredsAtom } from "@/atoms/atoms";
 
 export default function Home() {
     const spotifyApi = useSpotify();
     const [playlists, setPlaylists] = useAtom(playlistsAtom);
+    const [featureds, setFeatureds] = useAtom(featuredsAtom);
 
     const router = useRouter();
 
@@ -26,6 +27,10 @@ export default function Home() {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getUserPlaylists().then((data) => {
                 setPlaylists(data.body);
+            });
+            //spotifyApi.getMyRecentlyPlayedTracks().then((data) => console.log(data));
+            spotifyApi.getFeaturedPlaylists({limit: 5}).then((data) => {
+                setFeatureds(data.body.playlists.items)
                 console.log(data);
             });
         };

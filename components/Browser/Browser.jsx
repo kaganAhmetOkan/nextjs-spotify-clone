@@ -6,10 +6,13 @@ import smallArrowIcon from "@/public/smallArrow-icon.png";
 import playIcon from "@/public/icons8-play-50.png";
 import pauseIcon from "@/public/icons8-pause-50.png";
 import Link from "next/link";
+import { useAtomValue } from "jotai";
+import { featuredsAtom } from "@/atoms/atoms";
 
 export default function Browser({ session: session}) {
     const [displayProfileOptions, setDisplayProfileOptions] = useState(false);
     const [headerBackground, setHeaderBackground] = useState("");
+    const featureds = useAtomValue(featuredsAtom);
 
     const smallArrowIconSize = 20;
 
@@ -88,7 +91,7 @@ export default function Browser({ session: session}) {
                         {generateGreeting()}
                     </div>
                     <div className={style.recentPlaylists}>
-                        <div className={style.playlist} onMouseEnter={() => generateHeaderBackground()}>
+                        <div className={style.playlist} onMouseEnter={() => generateHeaderBackground()} onMouseLeave={() => setHeaderBackground("grey")}>
                             <div className={style.thumbnail}>{`<3`}</div>
                             <div className={style.content}>
                                 <div>Liked Songs</div>
@@ -102,77 +105,26 @@ export default function Browser({ session: session}) {
                                 </div>
                             </div>
                         </div>
-                        <div className={style.playlist}>
-                            <div className={style.thumbnail}>{`<3`}</div>
-                            <div className={style.content}>
-                                <div>Liked Songs</div>
-                                <div className={style.playPause}>
-                                    <Image
-                                        alt="Play / Pause"
-                                        src={pauseIcon}
-                                        width={32}
-                                        height={"auto"}
-                                    />
+                        {featureds?.map((featured) => {
+                            return (
+                                <div key={featured.id} className={style.playlist} onMouseEnter={() => generateHeaderBackground()} onMouseLeave={() => setHeaderBackground("grey")}>
+                                    <div className={style.thumbnail}>
+                                        <Image alt={featured.name} src={featured.images[0].url} width={80} height={80} />
+                                    </div>
+                                    <div className={style.content}>
+                                        <div>{featured.name}</div>
+                                        <div className={style.playPause}>
+                                            <Image
+                                                alt="Play / Pause"
+                                                src={pauseIcon}
+                                                width={32}
+                                                height={"auto"}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className={style.playlist}>
-                            <div className={style.thumbnail}>{`<3`}</div>
-                            <div className={style.content}>
-                                <div>Liked Songs</div>
-                                <div className={style.playPause}>
-                                    <Image
-                                        alt="Play / Pause"
-                                        src={pauseIcon}
-                                        width={32}
-                                        height={"auto"}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.playlist}>
-                            <div className={style.thumbnail}>{`<3`}</div>
-                            <div className={style.content}>
-                                <div>Liked Songs</div>
-                                <div className={style.playPause}>
-                                    <Image
-                                        alt="Play / Pause"
-                                        src={pauseIcon}
-                                        width={32}
-                                        height={"auto"}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.playlist}>
-                            <div className={style.thumbnail}>{`<3`}</div>
-                            <div className={style.content}>
-                                <div>Liked Songs</div>
-                                <div className={style.playPause}>
-                                    <Image
-                                        alt="Play / Pause"
-                                        src={pauseIcon}
-                                        width={32}
-                                        height={"auto"}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.playlist}>
-                            <div className={style.thumbnail}>{`<3`}</div>
-                            <div className={style.content}>
-                                <div>Liked Songs</div>
-                                <div className={style.playPause}>
-                                    <Image
-                                        alt="Play / Pause"
-                                        src={pauseIcon}
-                                        width={32}
-                                        height={"auto"}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        
+                            );
+                        })}
                     </div>
                 </div>
             </div>
