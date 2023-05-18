@@ -1,0 +1,46 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pause,
+.icon {
+  cursor: pointer;
+  transition: 150ms;
+}
+
+.pause:active,
+.icon:active {
+  transform: scale(0.9);
+}
+
+.pause {
+  background-color: var(--foreground-dim);
+  border-radius: 5rem;
+  padding: 4px;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.progress > input {
+  width: 350px;
+}
+
+.progress > div {
+  width: 32px;
+  text-align: center;
+  font-size: 12px;
+}

@@ -4,7 +4,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     width: 300px;
-    height: calc(100vh - var(--player-height) - var(--global-padding) * 2);
+    height: calc(100vh - var(--player-height) - var(--global-padding) * 3);
     
     gap: 8px;
     transition: 500ms ease;

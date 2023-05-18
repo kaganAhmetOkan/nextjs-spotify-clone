@@ -2,17 +2,19 @@ import style from "@/styles/Home.module.css";
 import Head from "next/head";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Browser from "@/components/Browser/Browser";
+import Player from "@/components/Player/Player";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSpotify from "@/hooks/useSpotify";
-import { useAtom } from "jotai";
-import { playlistsAtom, featuredsAtom } from "@/atoms/atoms";
+import { useSetAtom } from "jotai";
+import { playlistsAtom, featuredsAtom, currentSongAtom } from "@/atoms/atoms";
 
 export default function Home() {
     const spotifyApi = useSpotify();
-    const [playlists, setPlaylists] = useAtom(playlistsAtom);
-    const [featureds, setFeatureds] = useAtom(featuredsAtom);
+    const setPlaylists = useSetAtom(playlistsAtom);
+    const setFeatureds = useSetAtom(featuredsAtom);
+    const setCurrentSong = useSetAtom(currentSongAtom);
 
     const router = useRouter();
 
@@ -28,13 +30,17 @@ export default function Home() {
             spotifyApi.getUserPlaylists().then((data) => {
                 setPlaylists(data.body);
             });
-            //spotifyApi.getMyRecentlyPlayedTracks().then((data) => console.log(data));
             spotifyApi.getFeaturedPlaylists({limit: 5}).then((data) => {
                 setFeatureds(data.body.playlists.items)
-                console.log(data);
+            });
+            spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+                if (data.body) {
+                    setCurrentSong(data.body.item);
+                    console.log(data);
+                };
             });
         };
-    }, [session, spotifyApi, setPlaylists]);
+    }, [session, spotifyApi, setPlaylists, setFeatureds, setCurrentSong]);
 
     return (
         <>
@@ -45,11 +51,11 @@ export default function Home() {
                 <link href="/Spotify_Icon_RGB_Black.png" rel="icon"/>
             </Head>
             <main className={style.main}>
-                <Sidebar/>
+                <Sidebar />
                 <Browser session={session}/>
             </main>
-            <footer>
-                {/* PLAYER */}
+            <footer className={style.footer}>
+                <Player />
             </footer>
         </>
     );

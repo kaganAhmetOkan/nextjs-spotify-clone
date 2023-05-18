@@ -1,0 +1,27 @@
+.main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 25vw;
+}
+
+.main[data-active="false"] {
+  opacity: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+}
+
+.artists {
+  display: flex;
+  color: #AAA;
+  font-size: 12px;
+}
+
+.artist {
+  flex-shrink: 0;
+}

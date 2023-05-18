@@ -1,0 +1,21 @@
+.main {
+  display: flex;
+  border-radius: var(--global-roundness);
+  height: var(--player-height);
+  padding: var(--global-padding);
+}
+
+.container {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--global-roundness);
+  background-color: var(--spotify-black);
+  padding: 0 var(--component-padding);
+}
+
+.container > * {
+  width: 30vw;
+  flex-grow: 1;
+}

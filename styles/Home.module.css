@@ -2,4 +2,6 @@
     display: flex;
     gap: 8px;
     padding: var(--global-padding);
+    padding-bottom: 0;
+    height: calc(100vh - var(--player-height) - var(--global-padding) * 3);
 }
