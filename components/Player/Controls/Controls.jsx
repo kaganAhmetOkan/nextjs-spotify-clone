@@ -1,5 +1,5 @@
 import style from "./Controls.module.css";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import shuffleIcon from "@/public/icons8-shuffle-50.png";
 import greenShuffleIcon from "@/public/icons8-shuffle-50-green.png";
@@ -11,8 +11,15 @@ import repeatIcon from "@/public/icons8-repeat-50.png";
 import greenRepeatIcon from "@/public/icons8-repeat-50-green.png";
 import oneRepeatIcon from "@/public/icons8-repeat-one-50.png";
 import { getMins, getSecs } from "@/utils/time";
+import useSpotify from "@/hooks/useSpotify";
+import { useSetAtom } from "jotai";
+import { currentSongAtom } from "@/atoms/atoms";
+import { debounce } from "throttle-debounce";
 
 export default function Controls({ track }) {
+  const spotifyApi = useSpotify();
+
+  const setCurrentSong = useSetAtom(currentSongAtom);
   const [shuffle, setShuffle] = useState(false);
   const [paused, setPaused] = useState(false);
   const [repeat, setRepeat] = useState(0);
@@ -20,8 +27,10 @@ export default function Controls({ track }) {
   const [progressCurrent, setProgressCurrent] = useState(0);
   const trackDuration = track.duration_ms;
 
+  const updateTrack = useCallback(debounce(1000, () => {
+    spotifyApi.getMyCurrentPlayingTrack().then((data) => {setCurrentSong(data?.body?.item); console.log(data)});
+  }), []);
 
-  console.log(track);
 
   return (
     <div className={style.main}>
@@ -31,7 +40,10 @@ export default function Controls({ track }) {
           alt="shuffle"
           src={shuffle ? greenShuffleIcon : shuffleIcon}
           width={24} height={24}
-          onClick={() => setShuffle(!shuffle)}
+          onClick={() => {
+            spotifyApi.setShuffle(!shuffle);
+            setShuffle(!shuffle)
+          }}
           className={style.icon}
         />
         <Image
@@ -40,12 +52,20 @@ export default function Controls({ track }) {
           src={previousIcon}
           width={24} height={24}
           className={style.icon}
+          onClick={() => {
+            spotifyApi.skipToPrevious();
+            updateTrack();
+          }}
         />
         <Image
           alt="pause/unpause"
           src={paused ? unpauseIcon : pauseIcon}
           width={24} height={24}
-          onClick={() => setPaused(!paused)}
+          onClick={() => {
+            if (paused) spotifyApi.play();
+            else spotifyApi.pause();
+            setPaused(!paused);
+          }}
           className={style.pause}
         />
         <Image
@@ -54,6 +74,10 @@ export default function Controls({ track }) {
           src={nextIcon}
           width={24} height={24}
           className={style.icon}
+          onClick={() => {
+            spotifyApi.skipToNext();
+            updateTrack();
+          }}
         />
         <Image
           title="repeat song"
@@ -62,8 +86,18 @@ export default function Controls({ track }) {
           width={24} height={24}
           className={style.icon}
           onClick={() => {
-            if (repeat === 2) setRepeat(0);
-            else setRepeat(repeat + 1);
+            if (repeat === 0) {
+              spotifyApi.setRepeat("context");
+              setRepeat(1);
+            }
+            else if (repeat === 1) {
+              spotifyApi.setRepeat("track");
+              setRepeat(2);
+            }
+            else {
+              spotifyApi.setRepeat("off");
+              setRepeat(0);
+            }
           }}
         />
       </div>
@@ -73,7 +107,8 @@ export default function Controls({ track }) {
           className={style.bar}
           onChange={(event) => setProgressCurrent(event.target.value)}
           type="range"
-          max={trackDuration ?? 100}
+          max={trackDuration ?? 0}
+          step={1000}
         ></input>
         <div>{`${getMins(trackDuration)}:${getSecs(trackDuration)}`}</div>
       </div>

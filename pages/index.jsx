@@ -34,10 +34,7 @@ export default function Home() {
                 setFeatureds(data.body.playlists.items)
             });
             spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-                if (data.body) {
-                    setCurrentSong(data.body.item);
-                    console.log(data);
-                };
+                if (data.body) setCurrentSong(data.body.item);
             });
         };
     }, [session, spotifyApi, setPlaylists, setFeatureds, setCurrentSong]);
