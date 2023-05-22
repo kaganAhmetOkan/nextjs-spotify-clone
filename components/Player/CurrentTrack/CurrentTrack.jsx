@@ -1,16 +1,20 @@
 import style from "./CurrentTrack.module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import useSpotify from "@/hooks/useSpotify";
 
 export default function CurrentTrack({ track: track }) {
+  const spotifyApi = useSpotify();
   const [mainActive, setMainActive] = useState(false);
   const image = track?.album?.images[0];
   if (!track) console.log("no track");
 
   useEffect(() => {
-    if (track) setMainActive(true)
-    else setMainActive(false);
-  }, [track])
+    if (spotifyApi.getAccessToken() && spotifyApi.getMyDevices()) {
+      if (track) setMainActive(true);
+      else setMainActive(false);
+    };
+  }, [track, spotifyApi])
 
   return (
     <div className={style.main} data-active={mainActive}>

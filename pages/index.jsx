@@ -59,10 +59,8 @@ export default function Home() {
 }
 
 // BUGS
-// Playlist fetch seems to refetch needlessly whenever the BROWSER is back in focus
+// Player will throw an error if there are no tracks being played in Spotify Client
+// same error if any of the buttons are pressed in Player when no track is being played in Spotify Client
 
 // NOTES
 // Redirect component and withAuth hoc no longer necessary as next-auth provides an in-built way of managing unauthenticated sessions.
-
-// TODOS
-// Implement layout

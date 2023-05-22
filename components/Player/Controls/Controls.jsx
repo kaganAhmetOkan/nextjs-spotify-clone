@@ -1,5 +1,5 @@
 import style from "./Controls.module.css";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import shuffleIcon from "@/public/icons8-shuffle-50.png";
 import greenShuffleIcon from "@/public/icons8-shuffle-50-green.png";
@@ -31,7 +31,6 @@ export default function Controls({ track }) {
     spotifyApi.getMyCurrentPlayingTrack().then((data) => {setCurrentSong(data?.body?.item); console.log(data)});
   }), []);
 
-
   return (
     <div className={style.main}>
       <div className={style.controls}>
@@ -40,7 +39,7 @@ export default function Controls({ track }) {
           alt="shuffle"
           src={shuffle ? greenShuffleIcon : shuffleIcon}
           width={24} height={24}
-          onClick={() => {
+          onClick={() => {  
             spotifyApi.setShuffle(!shuffle);
             setShuffle(!shuffle)
           }}
@@ -110,7 +109,7 @@ export default function Controls({ track }) {
           max={trackDuration ?? 0}
           step={1000}
         ></input>
-        <div>{`${getMins(trackDuration)}:${getSecs(trackDuration)}`}</div>
+        <div>{`${getMins(trackDuration ?? 0)}:${getSecs(trackDuration ?? 0)}`}</div>
       </div>
     </div>
   );
